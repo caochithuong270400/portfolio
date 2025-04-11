@@ -1,0 +1,12 @@
+:root {
+    /* color */
+    --light-point-mouse: #00000020;
+    --cob-frame: #2a2a2a;
+    --nav-bg-color: rgba(0, 0, 0, 0.8);
+    --neon-color: #01fe87;
+    --card-bg-color: rgba(255, 255, 255, 0.2);
+    --font-color: black;
+    --font-border: white;
+    --background-blur: #00000060;
+    --card-logo: rgba(255, 255, 255, 0.2);
+}

@@ -1,0 +1,62 @@
+.v-application {
+  background-image: linear-gradient(to right, var(--cob-frame) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--cob-frame) 1px, transparent 1px) !important;
+  background-size: 4vh 4vh !important;
+}
+
+.v-container[data-v-02281a80] {
+  /* CSS bạn muốn áp dụng */
+  height: 100% !important;
+}
+
+.large-text {
+  font-size: 5rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.middle-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.text-with-border {
+  font-family: 'Merriweather', serif;
+  font-weight: bold;
+  color: var(--font-color);
+  text-shadow: -1px -1px 0 var(--font-border), 1px -1px 0 var(--font-border),
+    -1px 1px 0 var(--font-border), 1px 1px 0 var(--font-border);
+  /* màu viền */
+}
+
+.card-d-none {
+  border: none;
+  box-shadow: none !important;
+}
+
+.card-blur {
+  background-color: var(--background-blur) !important;
+}
+
+.card-no-bg {
+  background-color: #00000000 !important;
+}
+
+.card_border {
+  border: 1px solid var(--neon-color) !important;
+}
+
+.card-text-footer {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.general-info-card-title {
+  color: var(--neon-color);
+  font-size: 0.8rem;
+}
+
+.general-info-card-text {
+  /* color: var(--neon-color); */
+  font-size: 1.2rem;
+}
