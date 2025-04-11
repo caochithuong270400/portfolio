@@ -202,7 +202,7 @@ export default {
   methods: {
     downloadCV() {
       const link = document.createElement("a");
-      link.href = "/files/cv.pdf"; // Đường dẫn tới file trong thư mục static
+      link.href = "/files/Cao-Chi-Thuong-CV.pdf"; // Đường dẫn tới file trong thư mục static
       link.download = "CV_Cao_Chi_Thuong.pdf"; // Tên file khi tải về
       link.click();
     },
