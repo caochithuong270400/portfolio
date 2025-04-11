@@ -34,6 +34,7 @@
                   rounded
                   variant="outlined"
                   append-icon="mdi-progress-download"
+                  @click="downloadCV"
                 >
                   Download CV
                 </v-btn>
@@ -199,6 +200,12 @@ export default {
     window.removeEventListener("resize", this.checkDevice);
   },
   methods: {
+    downloadCV() {
+      const link = document.createElement("a");
+      link.href = "/files/cv.pdf"; // Đường dẫn tới file trong thư mục static
+      link.download = "CV_Cao_Chi_Thuong.pdf"; // Tên file khi tải về
+      link.click();
+    },
     checkDevice() {
       this.isMobile = window.innerWidth <= 768; // Kích thước <= 768px là màn hình nhỏ
       console.log("Is Mobile:", this.isMobile);
