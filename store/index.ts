@@ -38,6 +38,7 @@ if (!localeExists('vi-custom')) {
 // Đặt locale là 'vi-custom'
 numeral.locale('vi-custom');
 export const useStore = defineStore('filterStore', () => {
+  const { locale } = useI18n()
   const state = ref({
     theme: 'dark',
     app_bar: true,
@@ -90,6 +91,10 @@ export const useStore = defineStore('filterStore', () => {
   const method = ref({
 
   })
+
+  const changeLanguage = (lang: string) => {
+    locale.value = lang as 'en' | 'vi'
+  }
 
   // chuyển từ số sang tiền
   function formatMoney(val: number) {
@@ -228,6 +233,7 @@ export const useStore = defineStore('filterStore', () => {
 
   return {
     state, style, data, method,
+    changeLanguage,
     formatMoney, parseMoney, parseDateToDMY, parseDMYToYMD,
     validateEmail, validatePhoneNumber, changeTheme, checkDevice
   }

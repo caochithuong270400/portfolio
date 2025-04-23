@@ -16,17 +16,8 @@ export default {
       storeMethod: useStore(),
     };
   },
-  mounted() {
-    this.checkDevice();
-    window.removeEventListener("resize", this.checkDevice());
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.checkDevice());
-  },
-  methods: {
-    checkDevice() {
-      this.isMobile = window.innerWidth < 768;
-    },
-  },
+  async mounted() {},
+  beforeUnmount() {},
+  methods: {},
 };
 </script>

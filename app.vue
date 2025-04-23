@@ -6,11 +6,11 @@
     <NuxtLayout id="text">
       <NuxtPage />
     </NuxtLayout>
-    <!-- <div
+    <div
       style="top: -20vh"
       v-if="!store.state.isMobile"
       :id="!store.state.isMobile ? 'light' : ''"
-    ></div> -->
+    ></div>
   </v-app>
 </template>
 <script setup>
@@ -32,8 +32,6 @@ export default defineComponent({
       // overlay: true,
       store: storeToRefs(useStore()),
       storeMethod: useStore(),
-
-      isMobile: false,
     };
   },
   mounted() {
@@ -42,10 +40,10 @@ export default defineComponent({
     if (!this.store.state.isMobile) {
       this.mouseSetup();
     }
-    window.removeEventListener("resize", this.checkDevice());
+    window.addEventListener("resize", this.checkDevice);
   },
   beforeDestroy() {
-    window.removeEventListener("resize", this.checkDevice());
+    window.removeEventListener("resize", this.checkDevice);
   },
   watch: {
     "store.state.isMobile"() {
@@ -54,7 +52,7 @@ export default defineComponent({
         setTimeout(() => {
           this.mouseSetup();
         }, 1000); // Delay 1s
-      } 
+      }
       // else if (this.store.state.isChangeToMobileFromDesktop) {
       //   location.reload();
       // }
@@ -62,7 +60,7 @@ export default defineComponent({
   },
   methods: {
     checkDevice() {
-      this.isMobile = window.innerWidth < 768;
+      this.store.state.isMobile = window.innerWidth < 768;
     },
 
     mouseSetup() {
@@ -72,13 +70,24 @@ export default defineComponent({
           let mouseX = event.pageX;
           let mouseY = event.pageY;
 
-          // Lấy chiều rộng và chiều cao của 'light'
           let lightWidth = light.offsetWidth / 2;
           let lightHeight = light.offsetHeight / 2;
 
-          // Đặt tâm của 'light' tại vị trí con trỏ
-          light.style.left = mouseX - lightWidth + "px";
-          light.style.top = mouseY - lightHeight + "px";
+          // Giới hạn vị trí không vượt quá khung hình
+          let x = Math.max(
+            0,
+            Math.min(mouseX - lightWidth, window.innerWidth - light.offsetWidth)
+          );
+          let y = Math.max(
+            0,
+            Math.min(
+              mouseY - lightHeight,
+              window.innerHeight - light.offsetHeight
+            )
+          );
+
+          light.style.left = x + "px";
+          light.style.top = y + "px";
         });
       }
     },

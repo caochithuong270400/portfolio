@@ -31,7 +31,21 @@
               :text="item.title"
               :value="item.id"
               :to="item.path"
-            ></v-tab>
+            >
+              {{ item.title }}
+              <v-menu v-if="item.isLanguage" activator="parent">
+                <v-list>
+                  <v-list-item
+                    v-for="(item2, index) in languages"
+                    :key="index"
+                    :value="index"
+                    @click="storeMethod.changeLanguage(item2.id)"
+                  >
+                    <v-list-item-title>{{ item2.name }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </v-tab>
           </v-tabs>
         </v-app-bar-title>
 
@@ -45,39 +59,20 @@
             false-value="light"
             true-value="dark"
             hide-details
+            style="margin-right: 5vw"
           ></v-switch>
-          <!-- <v-btn
-            icon="mdi-apps"
-            @click="navidation_right = !navidation_right"
-          ></v-btn> -->
         </template>
       </v-app-bar>
     </transition>
 
     <!-- nav 1 -->
     <v-navigation-drawer
-      :style="`display: ${store.state.isMobile ? 'block' : 'none'};`"
       v-model="navidation_left_1"
       :theme="store.state.theme"
       class="nav-style"
     >
-      <!-- <v-list-item nav>
-        <v-btn
-          icon="mdi-chevron-left"
-          variant="text"
-          @click.stop="navidation_left_2 = !navidation_left_2"
-        ></v-btn>
-      </v-list-item> -->
       <v-list density="compact" nav>
         <span v-for="(item, i) in n1s" :key="i">
-          <!-- <v-list-item
-            :prepend-icon="item.mdi"
-            :value="item.hint"
-            @click="
-              navidation_left_2 = true;
-              n1_id = item.id;
-            "
-          > -->
           <v-list-item
             v-if="item.id !== 2 && item.type !== 'expand'"
             :prepend-icon="item.mdi"
@@ -137,7 +132,6 @@ import { useStore } from "~/store";
 export default {
   data() {
     return {
-      isMobile: false,
       isLoading: true, // Trạng thái màn hình chờ
 
       store: storeToRefs(useStore()),
@@ -182,13 +176,25 @@ export default {
           path: "/",
         },
         {
-          id: "hire",
-          title: "Hire me",
+          id: "language",
+          title: "Language",
           mdi: "mdi-home",
-          hint: "hire",
+          hint: "language",
           path: "/",
+          isLanguage: true,
         },
       ], // tiêu đề layout
+      languages: [
+        {
+          id: "vi",
+          name: "Việt Nam",
+        },
+        {
+          id: "en",
+          name: "English",
+        },
+      ],
+
       navidation_right: false,
       navidation_left_1: false,
       navidation_left_2: false,
@@ -237,39 +243,32 @@ export default {
     };
   },
   mounted() {
-    this.checkDevice();
-    window.addEventListener("resize", this.checkDevice());
-
     this.storeMethod.changeTheme();
   },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.checkDevice());
-  },
+  beforeUnmount() {},
   watch: {
     "store.state.isMobile"(newVal, oldVal) {
-      this.navidation_left_1 = false;
-      console.log("changed mobile!", this.store.state.isMobile);
-      // if (this.store.state.isMobile) {
-      //   this.store.state.isChangeToMobileFromDesktop = true;
-      // }
+      if (!this.store.state.isMobile) {
+        this.navidation_left_1 = false;
+      }
     },
     "store.state.theme"(newVal, oldVal) {
       this.storeMethod.changeTheme();
     },
+    navidation_left_1() {
+      if (!this.store.state.isMobile) {
+        this.navidation_left_1 = false;
+      }
+    },
   },
   methods: {
-    checkDevice() {
-      this.isMobile = window.innerWidth < 768;
-    },
     toggleCard() {
       this.showCard = !this.showCard;
     },
     lookNavigationLeft() {
       if (this.store.state.isMobile) {
         this.navidation_left_1 = !this.navidation_left_1;
-        // if (this.navidation_left_1 === false) {
-        //   this.navidation_left_2 = false;
-        // }
+        console.log("this.navidation_left_1", this.navidation_left_1);
       }
     },
   },
@@ -297,16 +296,6 @@ export default {
   border: none;
   box-shadow: none !important;
 }
-/* #light {
-  position: absolute;
-  transform: translate(0%, 0%);
-  width: 50px;
-  height: 50px;
-  background: var(--light-point-mouse);
-  border-radius: 50%;
-  box-shadow: 0 0 15px #fff, 0 0 50px #fff, 0 0 100px #fff, 0 0 200px #fff,
-    0 0 300px #fff;
-} */
 .bg-trsp {
   background-color: rgba(255, 255, 255, 0);
 }

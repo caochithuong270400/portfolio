@@ -176,7 +176,6 @@ export default {
     return {
       store: storeToRefs(useStore()),
       storeMethod: useStore(),
-      isMobile: false,
       tab: 0,
 
       // Các phần này sẽ làm mục chi tiết, các khóa học,...
@@ -330,19 +329,9 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.checkDevice();
-    window.addEventListener("resize", this.checkDevice);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.checkDevice);
-  },
-  watch: {},
-  methods: {
-    checkDevice() {
-      this.store.state.isMobile = window.innerWidth <= 768; // Kích thước <= 768px là màn hình nhỏ
-    },
-  },
+  mounted() {},
+  beforeUnmount() {},
+  methods: {},
 };
 </script>
 

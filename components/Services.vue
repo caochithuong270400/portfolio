@@ -54,9 +54,13 @@
 </template>
 
 <script>
+import { storeToRefs } from "pinia";
+import { useStore } from "~/store";
 export default {
   data() {
     return {
+      store: storeToRefs(useStore()),
+      storeMethod: useStore(),
       services: [
         {
           title: "Web Developer",
@@ -91,6 +95,9 @@ export default {
       ],
     };
   },
+  mounted() {},
+  beforeUnmount() {},
+  methods: {},
 };
 </script>
 

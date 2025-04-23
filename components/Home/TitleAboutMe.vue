@@ -82,7 +82,7 @@
             </v-row>
           </v-col>
           <v-col
-            v-if="!isMobile"
+            v-if="!store.state.isMobile"
             cols="12"
             md="6"
             sm="12"
@@ -111,7 +111,7 @@
           </v-col>
 
           <v-col
-            v-if="isMobile"
+            v-if="store.state.isMobile"
             cols="12"
             class="d-flex align-center justify-center"
           >
@@ -192,23 +192,12 @@ export default {
       isMobile: false,
     };
   },
-  mounted() {
-    this.checkDevice();
-    window.addEventListener("resize", this.checkDevice);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.checkDevice);
-  },
   methods: {
     downloadCV() {
       const link = document.createElement("a");
       link.href = "/files/Cao-Chi-Thuong-CV.pdf"; // Đường dẫn tới file trong thư mục static
       link.download = "CV_Cao_Chi_Thuong.pdf"; // Tên file khi tải về
       link.click();
-    },
-    checkDevice() {
-      this.isMobile = window.innerWidth <= 768; // Kích thước <= 768px là màn hình nhỏ
-      console.log("Is Mobile:", this.isMobile);
     },
   },
 };

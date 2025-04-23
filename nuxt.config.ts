@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import dotenv from 'dotenv';
+dotenv.config();
 export default defineNuxtConfig({
-  // devtools: { enabled: true }
+  devtools: { enabled: false },
   css: ['vuetify/lib/styles/main.sass',
     '@mdi/font/css/materialdesignicons.min.css',
     '~/assets/css/global.css',
@@ -36,12 +38,12 @@ export default defineNuxtConfig({
     lazy: true
   },
 
-  runtimeConfig: {
-    public: {
-      HASURA_GRAPHQL_URL: 'https://your-hasura-instance/v1/graphql',
-      HASURA_ADMIN_SECRET: 'your-admin-secret',
-    },
-  },
+  // runtimeConfig: {
+  //   public: {
+  //     HASURA_GRAPHQL_URL: process.env.HASURA_ENDPOINT,
+  //     HASURA_ADMIN_SECRET: process.env.HASURA_ADMIN_SECRET,
+  //   },
+  // },
 
   compatibilityDate: '2025-03-23',
 })
